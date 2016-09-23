@@ -86,10 +86,12 @@ class Person extends \Jkirkby91\DoctrineSchemas\Entities\Thing
     /**
      * Person constructor.
      * @param $email
+     * @param $nodeType
      */
-    public function __construct($email)
+    public function __construct($email,$nodeType)
     {
         $this->email = $email;
+        parent::__construct($nodeType);
     }
 
     /**

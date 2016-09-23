@@ -3,6 +3,7 @@
 namespace Jkirkby91\DoctrineSchemas\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use Jkirkby91\LumenDoctrineComponent\Entities\LumenDoctrineEntity;
 
 /**
  * Class Thing
@@ -11,21 +12,21 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks()
  */
-abstract class Thing extends \Jkirkby91\DoctrineNodeEntity\DoctrineNodeEntity implements \Jkirkby91\Boilers\SchemaBoilers\SchemaContract
+abstract class Thing extends LumenDoctrineEntity implements \Jkirkby91\Boilers\SchemaBoilers\SchemaContract
 {
-    /**
-     * Thing constructor.
-     * @param $name
-     */
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
 
     /**
-     * @ORM\Column(type="string", length=45, nullable=true)
+     * @ORM\Column(type="json", length=45, nullable=true)
      */
     protected $name;
+
+    /**
+     * @param $nodeType
+     */
+    public function __construct($nodeType)
+    {
+        parent::__construct($nodeType);
+    }
 
     /**
      * @return mixed
@@ -41,7 +42,7 @@ abstract class Thing extends \Jkirkby91\DoctrineNodeEntity\DoctrineNodeEntity im
      */
     public function setName($name)
     {
-        $this->name = $name;
+        $this->name = json_encode($name);
         return $this;
     }
 }
