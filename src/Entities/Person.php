@@ -12,7 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity
  * @Gedmo\Loggable
  * @ORM\Entity(repositoryClass="ApiArchitect\Compass\Repositories\PersonRepository")
- * @ORM\Table(name="person", indexes={@ORM\Index(name="search_idx", columns={"email"})})
+ * @ORM\Table(name="person")
  * @author James Kirkby <jkirkby91@gmail.com>
  */
 class Person extends \Jkirkby91\DoctrineSchemas\Entities\Thing

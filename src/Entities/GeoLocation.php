@@ -7,50 +7,47 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class GeoLocation
  * @package Jkirkby91\DoctrineSchemas
+ * @ORM\MappedSuperclass
+ * @ORM\Entity
+ * @ORM\Table(name="geolocation")
+ * @ORM\HasLifecycleCallbacks
  */
-class GeoLocation extends \Jkirkby91\DoctrineSchemas\Entities\Thing
+class GeoLocation extends \Jkirkby91\DoctrineSchemas\Entities\Place
 {
-
-    protected $address;
 
     protected $addressCountry;
 
     protected $elavation;
 
+    /**
+     * @ORM\Column(type="string", length=45, nullable=false)
+     */
     protected $longitude;
 
+    /**
+     * @ORM\Column(type="string", length=45, nullable=false)
+     */
     protected $latitude;
 
+    /**
+     * @ORM\Column(type="string", length=45, nullable=true)
+     */
     protected $postcode;
 
     /**
-     * GeoLocation constructor.
+     * BarberShop constructor.
+     *
      * @param $longitude
      * @param $latitude
+     * @param $name
+     * @param $address
      */
-    public function __construct($longitude, $latitude,$name)
+    public function __construct($longitude, $latitude,$name,$address)
     {
-        parent::__construct($name);
-        $this->longitude = $longitude;
-        $this->latitude = $latitude;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param mixed $address
-     * @return GeoLocation
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-        return $this;
+        $this->setNodeType('GeoLocation');
+        $this->setLongitude($longitude);
+        $this->setLatitude($latitude);
+        $this->setName($name);
     }
 
     /**

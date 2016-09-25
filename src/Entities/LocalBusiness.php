@@ -2,6 +2,7 @@
 
 namespace Jkirkby91\DoctrineSchemas\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,11 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package Jkirkby91\DoctrineSchemas
  * @ORM\Entity
- * @ORM\Table(name="localbusiness", indexes={@ORM\Index(name="name_idx", columns={"name"})})
+ * @ORM\Table(name="localbusiness")
  * @ORM\Entity(repositoryClass="DoctrineSchemas\Repositories\LocalBusinessRepository")
  * @author James Kirkby <jkirkby91@gmail.com>
+ * @ORM\HasLifecycleCallbacks
  */
-class LocalBusiness extends \Jkirkby91\DoctrineSchemas\Place
+class LocalBusiness extends \Jkirkby91\DoctrineSchemas\Entities\GeoLocation
 {
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
@@ -39,15 +41,17 @@ class LocalBusiness extends \Jkirkby91\DoctrineSchemas\Place
     /**
      * LocalBusiness constructor.
      *
-     * @param $openingHours
-     * @param $address
-     * @param $telephone
+     * @param $longitude
+     * @param $latitude
      * @param $name
      */
-    public function __construct($openingHours,$address,$telephone,$name)
+    public function __construct($longitude, $latitude,$name)
     {
-        parent::__construct($address,$telephone,$name);
-        $this->openingHours = $openingHours;
+        $this->setNodeType('LocalBusiness');
+        $this->setLongitude($longitude);
+        $this->setLatitude($latitude);
+        $this->address = new ArrayCollection();
+        $this->setName($name);
     }
 
     /**

@@ -2,66 +2,169 @@
 
 namespace Jkirkby91\DoctrineSchemas\Entities;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping AS ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Class PostalAddress
+ * Class Address
  *
- * @package Jkirkby91\DoctrineSchemas
- * @ORM\Entity
- * @ORM\Table(name="postaladdress", indexes={@ORM\Index(name="name_idx", columns={"name"})})
- * @ORM\Entity(repositoryClass="DoctrineSchemas\Repositories\PostalAddressRepository")
+ * @package App\Entities
  * @author James Kirkby <jkirkby91@gmail.com>
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="postaladdress")
+ * @ORM\HasLifecycleCallbacks()
  */
 class PostalAddress extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 {
 
     /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="comment", cascade={"persist"})
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    protected $id;
+
+    /**
+     * @var
+     * @ORM\Column(type="string")
+     */
+    protected $addressLine1;
+
+    /**
+     * @var
+     * @ORM\Column(type="string")
+     */
+    protected $addressLine2;
+
+    /**
+     * @var
+     * @ORM\Column(type="string")
+     */
+    protected $addressCity;
+
+    /**
+     * @var
+     * @ORM\Column(type="string")
+     */
+    protected $addressState;
+
+    /**
+     * @var
+     * @ORM\Column(type="string")
      */
     protected $addressCountry;
 
     /**
-     * @ORM\Column(type="string", length=45, nullable=true)
+     * @var
+     * @ORM\Column(type="string")
      */
-    protected $addressLocality;
+    protected $addressZip;
 
     /**
-     * @ORM\Column(type="string", length=45, nullable=true)
+     * @var
+     * @ORM\ManyToOne(targetEntity="Place", inversedBy="postaladdress")
      */
-    protected $addressRegion;
-
-    /**
-     * @ORM\Column(type="string", length=45, nullable=true)
-     */
-    protected $postOfficeBoxNumber;
-
-    /**
-     * @ORM\Column(type="string", length=45, nullable=true)
-     */
-    protected $postalCode;
-
-    /**
-     * @ORM\Column(type="string", length=45, nullable=true)
-     */
-    protected $streetAddress;
+    protected $place;
 
     /**
      * PostalAddress constructor.
+     * @param $addressLine1
+     * @param $addressLine2
+     * @param $addressCity
+     * @param $addressState
      * @param $addressCountry
-     * @param $addressLocality
-     * @param $addressRegion
-     * @param $postalCode
-     * @param $streetAddress
+     * @param $addressZip
      */
-    public function __construct($addressCountry, $addressLocality, $addressRegion, $postalCode, $streetAddress)
+    public function __construct($addressLine1, $addressLine2, $addressCity, $addressState, $addressCountry, $addressZip, $name)
     {
+        $this->addressLine1 = $addressLine1;
+        $this->addressLine2 = $addressLine2;
+        $this->addressCity = $addressCity;
+        $this->addressState = $addressState;
         $this->addressCountry = $addressCountry;
-        $this->addressLocality = $addressLocality;
-        $this->addressRegion = $addressRegion;
-        $this->postalCode = $postalCode;
-        $this->streetAddress = $streetAddress;
+        $this->addressZip = $addressZip;
+        parent::__construct($name);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddressLine1()
+    {
+        return $this->addressLine1;
+    }
+
+    /**
+     * @param mixed $addressLine1
+     * @return $this
+     */
+    public function setAddressLine1($addressLine1)
+    {
+        $this->addressLine1 = $addressLine1;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddressLine2()
+    {
+        return $this->addressLine2;
+    }
+
+    /**
+     * @param mixed $addressLine2
+     * @return $this
+     */
+    public function setAddressLine2($addressLine2)
+    {
+        $this->addressLine2 = $addressLine2;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddressCity()
+    {
+        return $this->addressCity;
+    }
+
+    /**
+     * @param mixed $addressCity
+     * @return $this
+     */
+    public function setAddressCity($addressCity)
+    {
+        $this->addressCity = $addressCity;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddressState()
+    {
+        return $this->addressState;
+    }
+
+    /**
+     * @param mixed $addressState
+     * @return $this
+     */
+    public function setAddressState($addressState)
+    {
+        $this->addressState = $addressState;
+        return $this;
     }
 
     /**
@@ -74,7 +177,7 @@ class PostalAddress extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 
     /**
      * @param mixed $addressCountry
-     * @return PostalAddress
+     * @return $this
      */
     public function setAddressCountry($addressCountry)
     {
@@ -85,90 +188,37 @@ class PostalAddress extends \Jkirkby91\DoctrineSchemas\Entities\Thing
     /**
      * @return mixed
      */
-    public function getAddressLocality()
+    public function getAddressZip()
     {
-        return $this->addressLocality;
+        return $this->addressZip;
     }
 
     /**
-     * @param mixed $addressLocality
-     * @return PostalAddress
+     * @param mixed $addressZip
+     * @return $this
      */
-    public function setAddressLocality($addressLocality)
+    public function setAddressZip($addressZip)
     {
-        $this->addressLocality = $addressLocality;
+        $this->addressZip = $addressZip;
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getAddressRegion()
+    public function getPlace()
     {
-        return $this->addressRegion;
+        return $this->place;
     }
 
     /**
-     * @param mixed $addressRegion
+     * @param mixed $place
      * @return PostalAddress
      */
-    public function setAddressRegion($addressRegion)
+    public function setPlace($place)
     {
-        $this->addressRegion = $addressRegion;
+        $this->place = $place;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPostOfficeBoxNumber()
-    {
-        return $this->postOfficeBoxNumber;
-    }
-
-    /**
-     * @param mixed $postOfficeBoxNumber
-     * @return PostalAddress
-     */
-    public function setPostOfficeBoxNumber($postOfficeBoxNumber)
-    {
-        $this->postOfficeBoxNumber = $postOfficeBoxNumber;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPostalCode()
-    {
-        return $this->postalCode;
-    }
-
-    /**
-     * @param mixed $postalCode
-     * @return PostalAddress
-     */
-    public function setPostalCode($postalCode)
-    {
-        $this->postalCode = $postalCode;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getStreetAddress()
-    {
-        return $this->streetAddress;
-    }
-
-    /**
-     * @param mixed $streetAddress
-     * @return PostalAddress
-     */
-    public function setStreetAddress($streetAddress)
-    {
-        $this->streetAddress = $streetAddress;
-        return $this;
-    }
 }

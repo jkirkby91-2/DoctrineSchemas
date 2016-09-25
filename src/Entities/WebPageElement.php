@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package app\Http\Controllers
  * @author James Kirkby <jkirkby91@gmail.com>
  */
-class WebPageElement extends \Jkirkby91\DoctrineSchemas\CreativeWork
+class WebPageElement extends \Jkirkby91\DoctrineSchemas\Entities\CreativeWork
 {
     /**
      * WebPageElement constructor.

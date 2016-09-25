@@ -14,20 +14,18 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="review", indexes={@ORM\Index(name="name_idx", columns={"name"})})
  * @ORM\Entity(repositoryClass="DoctrineSchemas\Repositories\ReviewRepository")
  */
-class Review extends \Jkirkby91\DoctrineSchemas\CreativeWork
+class Review extends \Jkirkby91\DoctrineSchemas\Entities\CreativeWork
 {
 
     //@TODO link target review thing
     protected $itemReviewed;
 
     /**
-     * @Gedmo\Blameable(on="create")
      * @ORM\Column(type="text", nullable=true)
      */
     protected $reviewBody;
 
     /**
-     * @Gedmo\Blameable(on="create")
      * @ORM\Column(type="integer", nullable=false, unique=false)
      */
     protected $reviewRating;
@@ -39,6 +37,7 @@ class Review extends \Jkirkby91\DoctrineSchemas\CreativeWork
      */
     public function __construct($itemReviewed, $reviewRating)
     {
+//        parent::__construct();
         $this->itemReviewed = $itemReviewed;
         $this->reviewRating = $reviewRating;
     }

@@ -19,13 +19,13 @@ use Doctrine\ORM\Mapping as ORM;
 class CreativeWork Extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 {
     /**
-     * @ORM\Column(type="text", nullable=true, unique=false)
+     * @ORM\Column(type="string", nullable=true, unique=false)
      */
     protected $about;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToOne(targetEntity="AggregateRating", mappedBy="creativework", cascade={"delete"})
+     * @ORM\OneToOne(targetEntity="AggregateRating", mappedBy="creativework", cascade={"remove"})
      */
     protected $aggregateRating;
 

@@ -7,8 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Country
  * @package Jkirkby91\DoctrineSchemas
+ * @ORM\Entity
+ * @ORM\Table(name="country")
  */
-class Country extends \Jkirkby91\DoctrineSchemas\Place
+class Country extends \Jkirkby91\DoctrineSchemas\Entities\Place
 {
 
     /**

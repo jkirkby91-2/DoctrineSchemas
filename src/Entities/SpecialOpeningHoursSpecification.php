@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="specialopeninghoursspecification", indexes={@ORM\Index(name="name_idx", columns={"name"})})
  * @ORM\Entity(repositoryClass="DoctrineSchemas\Repositories\SpecialOpeningHoursSpecificationRepository")
  */
-class SpecialOpeningHoursSpecification extends \Jkirkby91\DoctrineSchemas\OpeningHoursSpecification
+class SpecialOpeningHoursSpecification extends \Jkirkby91\DoctrineSchemas\Entities\OpeningHoursSpecification
 {
     /**
      * SpecialOpeningHoursSpecification constructor.

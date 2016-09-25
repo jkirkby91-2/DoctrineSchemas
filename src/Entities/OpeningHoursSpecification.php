@@ -7,6 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class OpeningHoursSpecification
  * @package Jkirkby91\DoctrineSchemas
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="openinghoursspecification")
  */
 class OpeningHoursSpecification extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 {

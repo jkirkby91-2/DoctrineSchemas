@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="DoctrineSchemas\Repositories\CommentRepository")
  * @author James Kirkby <jkirkby91@gmail.com>
  */
-class Comment extends \Jkirkby91\DoctrineSchemas\CreativeWork
+class Comment extends \Jkirkby91\DoctrineSchemas\Entities\CreativeWork
 {
     /**
      * @ORM\Column(type="integer", nullable=true, unique=false)

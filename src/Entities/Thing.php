@@ -10,22 +10,21 @@ use Jkirkby91\LumenDoctrineComponent\Entities\LumenDoctrineEntity;
  *
  * @package ApiArchitect\Entities
  * @ORM\MappedSuperclass
- * @ORM\HasLifecycleCallbacks()
+ * @ORM\HasLifecycleCallbacks
  */
 abstract class Thing extends LumenDoctrineEntity implements \Jkirkby91\Boilers\SchemaBoilers\SchemaContract
 {
-
     /**
-     * @ORM\Column(type="json", length=45, nullable=true)
+     * @ORM\Column(type="string", length=299, nullable=false)
      */
     protected $name;
 
     /**
-     * @param $nodeType
+     * @param $name
      */
-    public function __construct($nodeType)
+    public function __construct($name)
     {
-        parent::__construct($nodeType);
+        $this->setName($name);
     }
 
     /**

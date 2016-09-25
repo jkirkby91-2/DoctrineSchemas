@@ -4,7 +4,7 @@ namespace Jkirkby91\DoctrineSchemas\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
-class NailSalon extends LocalBusiness
+class BeautySalon extends LocalBusiness
 {
     /**
      * NailSalon constructor.

@@ -2,6 +2,7 @@
 
 namespace Jkirkby91\DoctrineSchemas\Entities;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,9 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package app\Entities
  * @ORM\Entity
- * @ORM\Table(name="place", indexes={@ORM\Index(name="name_idx", columns={"name"})})
+ * @ORM\Table(name="place")
  * @ORM\Entity(repositoryClass="DoctrineSchemas\Repositories\PlaceRepository")
  * @author James Kirkby <jkirkby91@gmail.com>
+ * @ORM\HasLifecycleCallbacks
  */
 class Place extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 {
@@ -24,7 +26,7 @@ class Place extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToOne(targetEntity="AggregatedRating", mappedBy="place", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="AggregateRating", mappedBy="place", cascade={"persist"})
      */
     protected $aggregateRating;
 
@@ -74,34 +76,18 @@ class Place extends \Jkirkby91\DoctrineSchemas\Entities\Thing
     protected $telephone;
 
     /**
-     * Place constructor.
+     * BarberShop constructor.
      *
-     * @param $address
      * @param $name
+     * @param $address
      */
-    public function __construct($address,$name)
+    public function __construct($name,$address)
     {
-        parent::__construct($name);
-        $this->address = $address;
+        $this->setNodeType('Place');
+        $this->address = new ArrayCollection();
+        $this->setName($name);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * @param mixed $address
-     * @return Place
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-        return $this;
-    }
 
     /**
      * @return mixed
@@ -245,5 +231,17 @@ class Place extends \Jkirkby91\DoctrineSchemas\Entities\Thing
     {
         $this->telephone = $telephone;
         return $this;
+    }
+
+    /**
+     * @param PostalAddress $address
+     */
+    public function addAddress(PostalAddress $address)
+    {
+        if(!$this->address->contains($address)) {
+            $address->setPlace($this);
+            $this->address->add($address);
+
+        }
     }
 }

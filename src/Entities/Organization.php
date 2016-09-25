@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="DoctrineSchemas\Repositories\OrganizationRepository")
  * @author James Kirkby <jkirkby91@gmail.com>
  */
-class Organization extends \Jkirkby91\DoctrineSchemas\Place
+class Organization extends \Jkirkby91\DoctrineSchemas\Entities\Place
 {
 
     protected $address;
