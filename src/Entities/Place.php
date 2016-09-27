@@ -13,14 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="place")
  * @ORM\Entity(repositoryClass="DoctrineSchemas\Repositories\PlaceRepository")
  * @author James Kirkby <jkirkby91@gmail.com>
- * @ORM\HasLifecycleCallbacks
+ * @ORM\MappedSuperclass
  */
 class Place extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 {
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="PostalAddress", mappedBy="place", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="PostalAddress",cascade={"persist"})
+     * @ORM\JoinColumn(name="address", referencedColumnName="id")
      */
     protected $address;
 
@@ -31,10 +32,10 @@ class Place extends \Jkirkby91\DoctrineSchemas\Entities\Thing
     protected $aggregateRating;
 
     /**
-     * @var ArrayCollection
-     * @ORM\OneToOne(targetEntity="GeoLocation", mappedBy="place", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="GeoCoordinates", inversedBy="Place")
+     * @ORM\JoinColumn(name="place_id", referencedColumnName="id")
      */
-    protected $geo;
+    protected $GeoCoordinates;
 
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
@@ -43,7 +44,7 @@ class Place extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="ImageObject", mappedBy="place", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="ImageObject", mappedBy="place", cascade={"persist"})
      */
     protected $logo;
 
@@ -84,27 +85,9 @@ class Place extends \Jkirkby91\DoctrineSchemas\Entities\Thing
     public function __construct($name,$address)
     {
         $this->setNodeType('Place');
-        $this->address = new ArrayCollection();
+//        $this->address = new ArrayCollection();
+//        $this->GeoCoordinates = new ArrayCollection();
         $this->setName($name);
-    }
-
-
-    /**
-     * @return mixed
-     */
-    public function getGeo()
-    {
-        return $this->geo;
-    }
-
-    /**
-     * @param mixed $geo
-     * @return Place
-     */
-    public function setGeo($geo)
-    {
-        $this->geo = $geo;
-        return $this;
     }
 
     /**
@@ -234,14 +217,40 @@ class Place extends \Jkirkby91\DoctrineSchemas\Entities\Thing
     }
 
     /**
-     * @param PostalAddress $address
+     * @return mixed
      */
-    public function addAddress(PostalAddress $address)
+    public function getGeoCoordinates()
     {
-        if(!$this->address->contains($address)) {
-            $address->setPlace($this);
-            $this->address->add($address);
-
-        }
+        return $this->GeoCoordinates;
     }
+
+    /**
+     * @param mixed $GeoCoordinates
+     * @return Place
+     */
+    public function setGeoCoordinates(GeoCoordinates $GeoCoordinates)
+    {
+        $this->GeoCoordinates = $GeoCoordinates;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     * @return Place
+     */
+    public function setAddress(PostalAddress $address)
+    {
+        $this->address = $address;
+        return $this;
+    }
+
+
 }

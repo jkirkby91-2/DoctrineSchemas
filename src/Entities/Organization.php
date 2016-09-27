@@ -64,7 +64,7 @@ class Organization extends \Jkirkby91\DoctrineSchemas\Entities\Place
      * @param mixed $address
      * @return Organization
      */
-    public function setAddress($address)
+    public function setAddress(PostalAddress $address)
     {
         $this->address = $address;
         return $this;

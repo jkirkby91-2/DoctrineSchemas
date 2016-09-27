@@ -13,9 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="localbusiness")
  * @ORM\Entity(repositoryClass="DoctrineSchemas\Repositories\LocalBusinessRepository")
  * @author James Kirkby <jkirkby91@gmail.com>
- * @ORM\HasLifecycleCallbacks
  */
-class LocalBusiness extends \Jkirkby91\DoctrineSchemas\Entities\GeoLocation
+class LocalBusiness extends \Jkirkby91\DoctrineSchemas\Entities\Place
 {
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
@@ -45,12 +44,13 @@ class LocalBusiness extends \Jkirkby91\DoctrineSchemas\Entities\GeoLocation
      * @param $latitude
      * @param $name
      */
-    public function __construct($longitude, $latitude,$name)
+    public function __construct($name)
     {
         $this->setNodeType('LocalBusiness');
-        $this->setLongitude($longitude);
-        $this->setLatitude($latitude);
+//        $this->setLongitude($longitude);
+//        $this->setLatitude($latitude);
         $this->address = new ArrayCollection();
+        $this->GeoCoordinates = new ArrayCollection();
         $this->setName($name);
     }
 

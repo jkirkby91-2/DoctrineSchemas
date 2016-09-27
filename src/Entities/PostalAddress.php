@@ -13,7 +13,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Entity
  * @ORM\Table(name="postaladdress")
- * @ORM\HasLifecycleCallbacks()
  */
 class PostalAddress extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 {
@@ -62,12 +61,6 @@ class PostalAddress extends \Jkirkby91\DoctrineSchemas\Entities\Thing
     protected $addressZip;
 
     /**
-     * @var
-     * @ORM\ManyToOne(targetEntity="Place", inversedBy="postaladdress")
-     */
-    protected $place;
-
-    /**
      * PostalAddress constructor.
      * @param $addressLine1
      * @param $addressLine2
@@ -84,7 +77,8 @@ class PostalAddress extends \Jkirkby91\DoctrineSchemas\Entities\Thing
         $this->addressState = $addressState;
         $this->addressCountry = $addressCountry;
         $this->addressZip = $addressZip;
-        parent::__construct($name);
+        $this->setName($name);
+        $this->setNodeType('Address');
     }
 
     /**
@@ -200,24 +194,6 @@ class PostalAddress extends \Jkirkby91\DoctrineSchemas\Entities\Thing
     public function setAddressZip($addressZip)
     {
         $this->addressZip = $addressZip;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPlace()
-    {
-        return $this->place;
-    }
-
-    /**
-     * @param mixed $place
-     * @return PostalAddress
-     */
-    public function setPlace($place)
-    {
-        $this->place = $place;
         return $this;
     }
 

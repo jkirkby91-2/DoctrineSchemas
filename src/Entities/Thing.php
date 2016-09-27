@@ -10,7 +10,6 @@ use Jkirkby91\LumenDoctrineComponent\Entities\LumenDoctrineEntity;
  *
  * @package ApiArchitect\Entities
  * @ORM\MappedSuperclass
- * @ORM\HasLifecycleCallbacks
  */
 abstract class Thing extends LumenDoctrineEntity implements \Jkirkby91\Boilers\SchemaBoilers\SchemaContract
 {
@@ -41,7 +40,7 @@ abstract class Thing extends LumenDoctrineEntity implements \Jkirkby91\Boilers\S
      */
     public function setName($name)
     {
-        $this->name = json_encode($name);
+        $this->name = $name;
         return $this;
     }
 }
