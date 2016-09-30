@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Jkirkby91\DoctrineSchemas
  * @ORM\Entity
  * @ORM\Table(name="rating", indexes={@ORM\Index(name="name_idx", columns={"name"})})
- * @ORM\Entity(repositoryClass="DoctrineSchemas\Repositories\RatingRepository")
+ * @ORM\Entity(repositoryClass="App\Repositories\RatingRepository")
  * @author James Kirkby <jkirkby91@gmail.com>
  */
 class Rating extends \Jkirkby91\DoctrineSchemas\Entities\Thing

@@ -14,37 +14,29 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class AggregateRating extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 {
-    protected $itemReviewed;
 
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=false)
+     */
     protected $ratingCount;
 
+    /**
+     * @var int
+     * @ORM\Column(type="integer", nullable=false)
+     */
     protected $reviewCount;
 
     /**
      * AggregateRating constructor.
-     * @param $itemReviewed
+     *
+     * @param int $ratingCount
+     * @param int $reviewCount
      */
-    public function __construct($itemReviewed)
+    public function __construct($ratingCount=0,$reviewCount=0)
     {
-        $this->itemReviewed = $itemReviewed;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getItemReviewed()
-    {
-        return $this->itemReviewed;
-    }
-
-    /**
-     * @param mixed $itemReviewed
-     * @return AggregateRating
-     */
-    public function setItemReviewed($itemReviewed)
-    {
-        $this->itemReviewed = $itemReviewed;
-        return $this;
+        $this->ratingCount = $ratingCount;
+        $this->reviewCount = $reviewCount;
     }
 
     /**
