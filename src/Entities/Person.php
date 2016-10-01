@@ -9,7 +9,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Class Person
  *
  * @package app\Entities
- * @ORM\Entity
  * @Gedmo\Loggable
  * @ORM\Entity(repositoryClass="ApiArchitect\Compass\Repositories\PersonRepository")
  * @ORM\Table(name="person")
