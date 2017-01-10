@@ -50,7 +50,7 @@ class Place extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToOne(targetEntity="openingHoursSpecification", mappedBy="place", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="OpeningHoursSpecification", mappedBy="place", cascade={"persist"})
      */
     protected $openingHoursSpecification;
 
@@ -67,7 +67,7 @@ class Place extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToOne(targetEntity="specialOpeningHoursSpecification", mappedBy="place", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="SpecialOpeningHoursSpecification", mappedBy="place", cascade={"persist"})
      */
     protected $specialOpeningHoursSpecification;
 
