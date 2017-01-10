@@ -1,5 +1,5 @@
 {
-    "name": "jkirkby91/DoctrineSchemas",
+    "name": "jkirkby91/doctrineschemas",
     "autoload": {
         "psr-4": {
             "Jkirkby91\\DoctrineSchemas\\": "src/"
