@@ -61,7 +61,7 @@ class Place extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="review", mappedBy="place", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Review", mappedBy="place", cascade={"persist"})
      */
     protected $review;
 
