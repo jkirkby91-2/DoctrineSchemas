@@ -40,8 +40,6 @@ class LocalBusiness extends \Jkirkby91\DoctrineSchemas\Entities\Place
     /**
      * LocalBusiness constructor.
      *
-     * @param $longitude
-     * @param $latitude
      * @param $name
      */
     public function __construct($name)
