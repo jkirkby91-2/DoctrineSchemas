@@ -1,18 +1,24 @@
 <?php
 
-namespace Jkirkby91\DoctrineSchemas\Entities;
+namespace App\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
  * Class GeoCoordinates
+ *
  * @package Jkirkby91\DoctrineSchemas
+ * @author James Kirkby <jkirkby91@gmail.com>
+ *
  * @ORM\MappedSuperclass
  * @ORM\Entity
- * @ORM\Table(name="geolocation")
+ * @ORM\Table(name="geo_co_ordinates")
+ * @ORM\Entity(repositoryClass="App\Repositories\GeoCoordinatesRepository")
+ * @ORM\HasLifeCycleCallBacks
  */
-class GeoCoordinates extends \Jkirkby91\LumenDoctrineComponent\Entities\LumenDoctrineEntity
+class GeoCoordinates extends \App\Entities\Thing
 {
 
     /**
@@ -26,22 +32,17 @@ class GeoCoordinates extends \Jkirkby91\LumenDoctrineComponent\Entities\LumenDoc
     protected $latitude;
 
     /**
-     * @ORM\OneToMany(targetEntity="Place", mappedBy="geocoordinates")
-     */
-    protected $place;
-
-    /**
      * BarberShop constructor.
      *
      * @param $longitude
      * @param $latitude
-     * @param $address
      */
-    public function __construct($longitude, $latitude)
+    public function __construct($latitude,$longitude)
     {
+        $this->setName($latitude .','. $longitude);
         $this->setNodeType('GeoLocation');
-        $this->setLongitude($longitude);
         $this->setLatitude($latitude);
+        $this->setLongitude($longitude);
 //        $this->place = new ArrayCollection();
     }
 
@@ -108,8 +109,8 @@ class GeoCoordinates extends \Jkirkby91\LumenDoctrineComponent\Entities\LumenDoc
     }
 
     /**
-     * @param mixed $latitude
-     * @return GeoLocation
+     * @param $latitude
+     * @return $this
      */
     public function setLatitude($latitude)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Jkirkby91\DoctrineSchemas\Entities;
+namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 use Jkirkby91\LumenDoctrineComponent\Entities\LumenDoctrineEntity;
@@ -9,11 +9,12 @@ use Jkirkby91\LumenDoctrineComponent\Entities\LumenDoctrineEntity;
  * Class Thing
  *
  * @package ApiArchitect\Entities
+ * @author James Kirkby <jkirkby91@gmail.com>
+ *
  * @ORM\MappedSuperclass
  */
 abstract class Thing extends LumenDoctrineEntity implements \Jkirkby91\Boilers\SchemaBoilers\SchemaContract
 {
-
     /**
      * @ORM\Column(type="string", length=299, nullable=false)
      */

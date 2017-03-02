@@ -1,9 +1,10 @@
 <?php
 
-namespace Jkirkby91\DoctrineSchemas\Entities;
+namespace App\Entities;
 
 use Doctrine\ORM\Mapping AS ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
  * Class Address
@@ -12,9 +13,11 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @author James Kirkby <jkirkby91@gmail.com>
  *
  * @ORM\Entity
- * @ORM\Table(name="postaladdress")
+ * @ORM\Table(name="postal_address")
+ * @ORM\Entity(repositoryClass="App\Repositories\PostalAddressRepository")
+ * @ORM\HasLifeCycleCallBacks
  */
-class PostalAddress extends \Jkirkby91\DoctrineSchemas\Entities\Thing
+class PostalAddress extends \App\Entities\Thing
 {
 
     /**
@@ -62,6 +65,8 @@ class PostalAddress extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 
     /**
      * PostalAddress constructor.
+     *
+     * @param $name
      * @param $addressLine1
      * @param $addressLine2
      * @param $addressCity
@@ -69,15 +74,15 @@ class PostalAddress extends \Jkirkby91\DoctrineSchemas\Entities\Thing
      * @param $addressCountry
      * @param $addressZip
      */
-    public function __construct($addressLine1, $addressLine2, $addressCity, $addressState, $addressCountry, $addressZip, $name)
+    public function __construct($name,$addressLine1, $addressLine2, $addressCity, $addressState, $addressCountry, $addressZip)
     {
+        $this->setName($name);
         $this->addressLine1 = $addressLine1;
         $this->addressLine2 = $addressLine2;
         $this->addressCity = $addressCity;
         $this->addressState = $addressState;
         $this->addressCountry = $addressCountry;
         $this->addressZip = $addressZip;
-        $this->setName($name);
         $this->setNodeType('Address');
     }
 

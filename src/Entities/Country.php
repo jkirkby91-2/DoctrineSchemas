@@ -1,6 +1,6 @@
 <?php
 
-namespace Jkirkby91\DoctrineSchemas\Entities;
+namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,6 +18,6 @@ class Country extends \Jkirkby91\DoctrineSchemas\Entities\Place
      */
     public function __construct($name)
     {
-        parent::__construct($address=null,$name);
+//        parent::__construct($address=null,$name);
     }
 }

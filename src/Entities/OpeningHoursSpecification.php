@@ -1,61 +1,61 @@
 <?php
 
-namespace Jkirkby91\DoctrineSchemas\Entities;
+namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 
 /**
  * Class OpeningHoursSpecification
+ *
  * @package Jkirkby91\DoctrineSchemas
+ * @author James Kirkby <jkirkby91@gmail.com>
  *
  * @ORM\Entity
- * @ORM\Table(name="openinghoursspecification")
+ * @ORM\HasLifeCycleCallbacks
+ * @ORM\Table(name="opening_hours_specification")
+ * @ORM\Entity(repositoryClass="App\Repositories\OpeningHoursRepository")
  */
-class OpeningHoursSpecification extends \Jkirkby91\DoctrineSchemas\Entities\Thing
+class OpeningHoursSpecification extends \App\Entities\Thing
 {
-    /**
-     * @ORM\Column(type="datetime", nullable=false)
-     */
-    protected $closes;
 
     /**
-     * @ORM\Column(type="datetime", nullable=false)
-     */
-    protected $daysOfWeek;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=false)
+     * @ORM\Column(type="datetime", nullable=false, unique=false)
      */
     protected $opens;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", nullable=false, unique=false)
      */
-    protected $validFrom;
+    protected $closes;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="string", nullable=false, unique=false)
      */
-    protected $validThrough;
+    protected $daysOfWeek;
+
+    /**
+     * @ORM\Column(type="string", nullable=false, unique=false)
+     */
+    protected $timezone;
 
     /**
      * OpeningHoursSpecification constructor.
      *
      * @param $name
-     * @param \DateTime $closes
-     * @param \DateTime $daysOfWeek
      * @param \DateTime $opens
-     * @param \DateTime $validFrom
-     * @param \DateTime $validThrough
+     * @param \DateTime $closes
+     * @param $daysOfWeek
+     * @param string $timezone
      */
-    public function __construct($name,\DateTime $closes, \DateTime $daysOfWeek, \DateTime $opens, \DateTime $validFrom, \DateTime $validThrough)
+    public function __construct($name,\DateTime $opens, \DateTime $closes, $daysOfWeek, $timezone = 'GMT')
     {
-        parent::__construct($name);
-        $this->closes = $closes;
-        $this->daysOfWeek = $daysOfWeek;
+        $this->name = $name;
         $this->opens = $opens;
-        $this->validFrom = $validFrom;
-        $this->validThrough = $validThrough;
+        $this->closes = $closes;
+        $this->timezone = $timezone;
+        $this->daysOfWeek = $daysOfWeek;
+        $this->nodeType = 'Opening Hours';
     }
 
     /**
@@ -113,38 +113,21 @@ class OpeningHoursSpecification extends \Jkirkby91\DoctrineSchemas\Entities\Thin
     }
 
     /**
-     * @return \DateTime
+     * @return mixed
      */
-    public function getValidFrom()
+    public function getTimezone()
     {
-        return $this->validFrom;
+        return $this->timezone;
     }
 
     /**
-     * @param \DateTime $validFrom
+     * @param mixed $timezone
      * @return OpeningHoursSpecification
      */
-    public function setValidFrom($validFrom)
+    public function setTimezone($timezone)
     {
-        $this->validFrom = $validFrom;
+        $this->timezone = $timezone;
         return $this;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getValidThrough()
-    {
-        return $this->validThrough;
-    }
-
-    /**
-     * @param \DateTime $validThrough
-     * @return OpeningHoursSpecification
-     */
-    public function setValidThrough($validThrough)
-    {
-        $this->validThrough = $validThrough;
-        return $this;
-    }
 }

@@ -1,21 +1,35 @@
 <?php
 
-namespace Jkirkby91\DoctrineSchemas\Entities;
+namespace App\Entities;
 
+use App\Entities\Thing;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class Person
  *
- * @package app\Entities
  * @Gedmo\Loggable
- * @ORM\Entity(repositoryClass="ApiArchitect\Compass\Repositories\PersonRepository")
  * @ORM\Table(name="person")
+ * @ORM\Entity(repositoryClass="App\Repositories\PersonRepository")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"person" = "Person", "user" = "ApiArchitect\Compass\Entities\User"})
+ * @ORM\HasLifeCycleCallBacks
+ * @TODO SEE IF WE CAN EGAR LOAD THE DISCRIMINATED ENTITY
+ * @package app\Entities
  * @author James Kirkby <jkirkby91@gmail.com>
  */
-class Person extends \Jkirkby91\DoctrineSchemas\Entities\Thing
+class Person extends Thing
 {
+
+    /**
+     * @var
+     * @ORM\Column(type="string",unique=false, nullable=true)
+     */
+    protected $additionalName;
 
     /**
      * @var
@@ -30,7 +44,8 @@ class Person extends \Jkirkby91\DoctrineSchemas\Entities\Thing
     protected $birthPlace;
 
     /**
-     * @var
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Person", mappedBy="person", cascade={"persist"})
      */
     protected $follows;
 
@@ -58,7 +73,9 @@ class Person extends \Jkirkby91\DoctrineSchemas\Entities\Thing
     protected $jobTitle;
 
     /**
-     * @var
+     * @TODO  needs to be many to many 
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Person", mappedBy="person", cascade={"persist"})
      */
     protected $knows;
 
@@ -70,27 +87,26 @@ class Person extends \Jkirkby91\DoctrineSchemas\Entities\Thing
     /**
      * @var
      */
-    protected $owns;
-
-    /**
-     * @var
-     */
     protected $workLocation;
 
     /**
-     * @var
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="LocalBusiness", mappedBy="localbusiness", cascade={"persist"})
      */
     protected $worksFor;
 
     /**
      * Person constructor.
-     * @param $email
-     * @param $nodeType
+     *
+     * @param $name
      */
-    public function __construct($email,$nodeType)
+    public function __construct($name)
     {
-        $this->email = $email;
-        parent::__construct($nodeType);
+        $this->setName($name);
+        $this->setNodeType('Person');
+        $this->knows = new ArrayCollection();
+        $this->follows = new ArrayCollection();
+        $this->worksFor = new ArrayCollection();
     }
 
     /**
@@ -270,24 +286,6 @@ class Person extends \Jkirkby91\DoctrineSchemas\Entities\Thing
     public function setNationality($nationality)
     {
         $this->nationality = $nationality;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOwns()
-    {
-        return $this->owns;
-    }
-
-    /**
-     * @param mixed $owns
-     * @return Person
-     */
-    public function setOwns($owns)
-    {
-        $this->owns = $owns;
         return $this;
     }
 

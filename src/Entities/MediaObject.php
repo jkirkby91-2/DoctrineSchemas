@@ -1,6 +1,6 @@
 <?php
 
-namespace Jkirkby91\DoctrineSchemas\Entities;
+namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @package Jkirkby91\DoctrineSchemas
  * @ORM\MappedSuperclass
  */
-class MediaObject extends \Jkirkby91\DoctrineSchemas\Entities\CreativeWork
+class MediaObject extends \App\Entities\CreativeWork
 {
 
     /**
@@ -49,10 +49,9 @@ class MediaObject extends \Jkirkby91\DoctrineSchemas\Entities\CreativeWork
      * @param $contentUrl
      * @param $embedUrl
      */
-    public function __construct($contentUrl, $embedUrl)
+    public function __construct($contentUrl)
     {
         $this->contentUrl = $contentUrl;
-        $this->embedUrl = $embedUrl;
     }
 
     /**

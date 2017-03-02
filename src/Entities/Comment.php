@@ -1,7 +1,8 @@
 <?php
 
-namespace Jkirkby91\DoctrineSchemas\Entities;
+namespace App\Entities;
 
+use App\Entities\CreativeWork;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -14,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="DoctrineSchemas\Repositories\CommentRepository")
  * @author James Kirkby <jkirkby91@gmail.com>
  */
-class Comment extends \Jkirkby91\DoctrineSchemas\Entities\CreativeWork
+class Comment extends CreativeWork
 {
     /**
      * @ORM\Column(type="integer", nullable=true, unique=false)

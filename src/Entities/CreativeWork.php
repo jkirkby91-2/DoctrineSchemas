@@ -1,6 +1,6 @@
 <?php
 
-namespace Jkirkby91\DoctrineSchemas\Entities;
+namespace App\Entities;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,14 +9,10 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package Jkirkby91\DoctrineSchemas
  *
- * @ORM\Entity
- * @ORM\Table(name="creativework", indexes={@ORM\Index(name="name_idx", columns={"name"})})
- * @ORM\Entity(repositoryClass="DoctrineSchemas\Repositories\CreativeWorkRepository")
- *
- * @package app\Http\Controllers
+ * @ORM\MappedSuperclass
  * @author James Kirkby <jkirkby91@gmail.com>
  */
-class CreativeWork Extends \Jkirkby91\DoctrineSchemas\Entities\Thing
+abstract class CreativeWork Extends \App\Entities\Thing
 {
     /**
      * @ORM\Column(type="string", nullable=true, unique=false)
@@ -25,13 +21,13 @@ class CreativeWork Extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToOne(targetEntity="AggregateRating", mappedBy="creativework", cascade={"remove"})
+     * @ORM\OneToOne(targetEntity="AggregateRating", fetch="EAGER", cascade={"remove"})
      */
     protected $aggregateRating;
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToOne(targetEntity="Person", mappedBy="person", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="\ApiArchitect\Compass\Entities\User", fetch="EAGER", cascade={"persist"})
      */
     protected $author;
 
@@ -62,7 +58,7 @@ class CreativeWork Extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToOne(targetEntity="Person", mappedBy="person", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="\ApiArchitect\Compass\Entities\User", fetch="EAGER", cascade={"persist"})
      */
     protected $translator;
 
@@ -76,7 +72,7 @@ class CreativeWork Extends \Jkirkby91\DoctrineSchemas\Entities\Thing
      * @param $author
      * @param $text
      */
-    public function __construct($author, $text=null,$name)
+    public function __construct($author, $text = null,$name)
     {
         parent::__construct($name);
         $this->author = $author;
