@@ -21,7 +21,7 @@ abstract class CreativeWork Extends \App\Entities\Thing
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToOne(targetEntity="AggregateRating", fetch="EAGER", cascade={"remove"})
+     * @ORM\OneToOne(targetEntity="Jkirkby91\DoctrineSchemas\Entities\AggregateRating", fetch="EAGER", cascade={"remove"})
      */
     protected $aggregateRating;
 
