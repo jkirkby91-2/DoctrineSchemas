@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entities;
+namespace Jkirkby91\DoctrineSchemas\Entities;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
