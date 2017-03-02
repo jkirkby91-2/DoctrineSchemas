@@ -6,6 +6,7 @@ use App\Entities\Thing;
 use Doctrine\ORM\Mapping as ORM;
 use ApiArchitect\Compass\Entities\User;
 use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Class LocalBusiness
  *
