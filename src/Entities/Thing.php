@@ -18,7 +18,7 @@ abstract class Thing extends LumenDoctrineEntity implements \Jkirkby91\Boilers\S
     /**
      * @ORM\Column(type="string", length=299, nullable=false)
      */
-    protected $name;
+    public $name;
 
     /**
      * @param $name
