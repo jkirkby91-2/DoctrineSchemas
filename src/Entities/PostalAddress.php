@@ -17,7 +17,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
  * @ORM\Entity(repositoryClass="App\Repositories\PostalAddressRepository")
  * @ORM\HasLifeCycleCallBacks
  */
-class PostalAddress extends \App\Entities\Thing
+class PostalAddress extends \Jkirkby91\DoctrineSchemas\Entities\Thing
 {
 
     /**
